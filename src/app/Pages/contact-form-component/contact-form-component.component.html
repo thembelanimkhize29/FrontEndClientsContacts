@@ -1,0 +1,17 @@
+<a routerLink="/">Home</a>
+<a routerLink="/clients">Create Client</a>
+<a routerLink="/contact">Create Contact</a>
+<a routerLink="/contacts">View contacts</a>
+<p>contact-form-component works!</p>
+
+<section class="create-contact">
+    <h2 class="section-heading">Create Contact</h2>
+  
+    <form [formGroup]="postContactForm" (submit)="postContact()">
+        <input type="text"  name="name" required placeholder="Name">
+        <input type="text"  name="surname" required placeholder="Surname">
+        <input type="email"  name="email" required placeholder="Email Address">
+
+      <button type="submit">Create Contact</button>
+    </form>
+  </section>
