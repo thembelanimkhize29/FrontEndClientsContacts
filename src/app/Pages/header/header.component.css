@@ -1,0 +1,15 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .center-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+  }
+  
+  .center-links a {
+    margin: 0 10px; /* Adjust spacing between links */
+  }
+  

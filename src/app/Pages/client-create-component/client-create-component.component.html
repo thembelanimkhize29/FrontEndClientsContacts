@@ -1,17 +1,36 @@
-<a routerLink="/">Home</a>
-<a routerLink="/clients">Create Client</a>
-<a routerLink="/contact">Create Contact</a>
-<a routerLink="/contacts">View contacts</a>
-<p>client-create-component works!</p>
+<section class="create-client mat-elevation-z2" style="text-align: center;">
+  <h2 class="section-heading mat-h2">Create Client</h2>
 
-<section class="create-client">
-    <h2 class="section-heading">Create Client</h2>
-  
-    <form [formGroup]="postCreateClientForm" (submit)="createClient()">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="firstName" formControlName="firstName">
-      <br>
+  <form [formGroup]="postCreateClientForm" (submit)="createClient()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name:</mat-label>
+      <input matInput type="text" id="name" name="firstName" formControlName="firstName">
+    </mat-form-field>
 
-      <button type="submit" [disabled]="!postCreateClientForm.valid">Create Client</button>
-    </form>
-  </section>
+    <button mat-raised-button color="primary" (click)="showContactForm = !showContactForm">+ Link to a Contact</button>
+
+    <ng-container *@If="showContactForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Name:</mat-label>
+        <input matInput type="text" name="contactName" placeholder="Name" formControlName="contactName" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Surname:</mat-label>
+        <input matInput type="text" name="contactSurname" placeholder="Surname" formControlName="contactSurname" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email Address:</mat-label>
+        <input matInput type="email" name="contactEmail" placeholder="Email Address" formControlName="contactEmail" required>
+      </mat-form-field>
+    </ng-container>
+
+    <br>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!postCreateClientForm.valid">Create Client</button>
+  </form>
+</section>
+
+<section class="content">
+  <router-outlet></router-outlet>
+</section>

@@ -1,17 +1,53 @@
-<a routerLink="/">Home</a>
-<a routerLink="/clients">Create Client</a>
-<a routerLink="/contact">Create Contact</a>
-<a routerLink="/contacts">View contacts</a>
-<p>contact-form-component works!</p>
-
 <section class="create-contact">
-    <h2 class="section-heading">Create Contact</h2>
+  <h2 class="section-heading">Create Contact</h2>
   
-    <form [formGroup]="postContactForm" (submit)="postContact()">
-        <input type="text"  name="name" required placeholder="Name">
-        <input type="text"  name="surname" required placeholder="Surname">
-        <input type="email"  name="email" required placeholder="Email Address">
+  <form [formGroup]="postContactForm" (submit)="postContact()">
+    <!-- Contact Fields -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" name="name" formControlName="name" required placeholder="Name">
+      <mat-error *@If="postContactForm.controls.name.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
 
-      <button type="submit">Create Contact</button>
-    </form>
-  </section>
+    <mat-form-field appearance="fill">
+      <mat-label>Surname</mat-label>
+      <input matInput type="text" name="surname" formControlName="surname" required placeholder="Surname">
+      <mat-error *@If="postContactForm.controls.surname.hasError('required')">
+        Surname is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email Address</mat-label>
+      <input matInput type="email" name="email" formControlName="email" required placeholder="Email Address">
+      <mat-error *@If="postContactForm.controls.email.hasError('email')">
+        Enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Button to Show/Hide Link to Client -->
+    <button mat-button color="primary" type="button" (click)="showClientForm = !showClientForm">
+      + Link to Client
+    </button>
+    
+    <!-- Optional Client Name Field -->
+    <div *@If="showClientForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Client Name</mat-label>
+        <input matInput type="text" id="clientName" name="clientName" formControlName="clientName" placeholder="Client Name">
+      </mat-form-field>
+    </div>
+
+    <!-- Create Contact Button -->
+    <br>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!postContactForm.valid">
+      Create Contact
+    </button>
+  </form>
+</section>
+
+<section class="content">
+  <router-outlet></router-outlet>
+</section>
