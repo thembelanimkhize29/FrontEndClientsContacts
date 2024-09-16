@@ -21,4 +21,22 @@
     display: block;
     margin-top: 15px;
   }
-  
+
+.client-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.client-input {
+  flex: 1;
+  margin-right: 8px;
+}
+
+button[mat-icon-button] {
+  min-width: 40px; 
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}

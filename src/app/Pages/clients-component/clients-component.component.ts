@@ -13,7 +13,7 @@ import { ClientServiceService } from '../../Services/client-service.service';
   styleUrl: './clients-component.component.css'
 })
 export class ClientsComponentComponent {
-  clients : any=[];
+  clients : Client[]=[];
 
   constructor(private clientService : ClientServiceService) { }
 
@@ -25,7 +25,6 @@ export class ClientsComponentComponent {
      this.clientService.getAllClientsOrderedByName().subscribe((res)=>{
        console.log(res);
        this.clients=res;
-       
      })
    }
 

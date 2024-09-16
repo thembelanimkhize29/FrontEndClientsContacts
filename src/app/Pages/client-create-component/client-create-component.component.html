@@ -1,33 +1,57 @@
-<section class="create-client mat-elevation-z2" style="text-align: center;">
+<section class="create-client mat-elevation-z2">
   <h2 class="section-heading mat-h2">Create Client</h2>
 
-  <form [formGroup]="postCreateClientForm" (submit)="createClient()">
-    <mat-form-field appearance="fill">
-      <mat-label>Name:</mat-label>
-      <input matInput type="text" id="name" name="firstName" formControlName="firstName">
+  <form [formGroup]="postCreateClientForm" (ngSubmit)="createClient()" class="client-form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Client Name</mat-label>
+      <input matInput type="text" id="name" name="firstName" formControlName="firstName" required>
+      <mat-error *ngIf="postCreateClientForm.controls['firstName']?.hasError('required')">
+        Client name is required
+      </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="showContactForm = !showContactForm">+ Link to a Contact</button>
+    <div formArrayName="contacts">
+      <ng-container *ngFor="let contact of contacts.controls; let i = index" [formGroupName]="i">
+        <mat-divider></mat-divider>
 
-    <ng-container *@If="showContactForm">
-      <mat-form-field appearance="fill">
-        <mat-label>Name:</mat-label>
-        <input matInput type="text" name="contactName" placeholder="Name" formControlName="contactName" required>
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contact Name</mat-label>
+          <input matInput type="text" name="contactName" placeholder="Name" formControlName="contactName" required>
+          <mat-error *ngIf="contact.get('contactName')?.hasError('required')">
+            Contact name is required
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Surname:</mat-label>
-        <input matInput type="text" name="contactSurname" placeholder="Surname" formControlName="contactSurname" required>
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contact Surname</mat-label>
+          <input matInput type="text" name="contactSurname" placeholder="Surname" formControlName="contactSurname" required>
+          <mat-error *ngIf="contact.get('contactSurname')?.hasError('required')">
+            Contact surname is required
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Email Address:</mat-label>
-        <input matInput type="email" name="contactEmail" placeholder="Email Address" formControlName="contactEmail" required>
-      </mat-form-field>
-    </ng-container>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Contact Email Address</mat-label>
+          <input matInput type="email" name="contactEmail" placeholder="Email Address" formControlName="contactEmail" required>
+          <mat-error *ngIf="contact.get('contactEmail')?.hasError('email')">
+            Enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-icon-button color="warn" type="button" (click)="removeContact(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+
+    <div #contactsEnd></div>
+
+    <button mat-raised-button color="primary" type="button" (click)="addContact()">
+      + Add a Contact
+    </button>
 
     <br>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!postCreateClientForm.valid">Create Client</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!postCreateClientForm.valid">Create Client</button>
   </form>
 </section>
 
