@@ -16,7 +16,7 @@ import { Contact } from '../../Interfaces/contact';
 @Component({
   selector: 'app-contact-form-component',
   standalone: true,
-  imports: [RouterLink,CommonModule, MatDividerModule, ReactiveFormsModule,RouterOutlet,MatToolbarModule, MatButtonModule, MatIconModule,  MatFormFieldModule,
+  imports: [RouterLink, CommonModule, MatDividerModule, ReactiveFormsModule, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule,
     MatInputModule,
     MatCardModule],
   templateUrl: './contact-form-component.component.html',
@@ -62,7 +62,10 @@ export class ContactFormComponentComponent {
   postContact(): void {
     if (this.postContactForm.valid) {
       console.log(this.postContactForm.value);
-    }
+      this.contactService.postContact(this.postContactForm.value).subscribe((res) => {
+          console.log('Contact created successfully', res);
+      }
+    )}
   }
 
   // postContact(): void {
@@ -88,5 +91,5 @@ export class ContactFormComponentComponent {
   //     console.log('Form is invalid');
   //   }
   // }
-  
+
 }

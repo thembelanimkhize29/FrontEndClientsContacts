@@ -62,13 +62,14 @@ export class ClientCreateComponentComponent {
   createClient() {
     if (this.postCreateClientForm.valid) {
       console.log(this.postCreateClientForm.value);
+       this.clientService.postClient(this.postCreateClientForm.value).subscribe((res)=>{
+      //console.log(res);
+    })
     }
-    // this.clientService.postClient(this.postCreateClientForm.value).subscribe((res)=>{
-    //   console.log(res);
-    // })
+   
   }
 
-  // createClient() {
+  // createClient1() {
   //   if (this.postCreateClientForm.valid) {
   //     const clientData: Client = {
   //       firstName: this.postCreateClientForm.get('firstName').value,
