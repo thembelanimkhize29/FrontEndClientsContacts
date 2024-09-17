@@ -20,20 +20,19 @@
     <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'linkedClients'];"></tr>
   </table>
 
-  <div *ngFor="let contact of contacts">
+  <!-- <div *ngFor="let contact of contacts">
     <h3>Clients for {{ contact.name }} {{ contact.surname }}</h3>
     <ul *ngIf="contact.clients && contact.clients.length > 0">
       <li *ngFor="let client of contact.clients">
         {{ client.firstName }} 
-        <!-- ({{ client.clientCode }}) -->
       </li>
     </ul>
     <p *ngIf="!contact.clients || contact.clients.length === 0">No clients linked.</p>
-  </div>
+  </div> -->
 </div>
 
 <ng-template #noContacts>
   <p>No contacts found.</p>
 </ng-template>
 
-<pre>{{ contacts | json }}</pre>
+<!-- <pre>{{ contacts | json }}</pre> -->
