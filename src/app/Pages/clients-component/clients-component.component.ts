@@ -4,16 +4,19 @@ import { ClientCreateComponentComponent } from '../client-create-component/clien
 import { Client } from '../../Interfaces/client';
 import { HttpClient } from '@angular/common/http';
 import { ClientServiceService } from '../../Services/client-service.service';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-clients-component',
   standalone: true,
-  imports: [RouterLink,ClientCreateComponentComponent],
+  imports: [RouterLink,MatTableModule,ClientCreateComponentComponent],
   templateUrl: './clients-component.component.html',
   styleUrl: './clients-component.component.css'
 })
 export class ClientsComponentComponent {
   clients : Client[]=[];
+  displayedColumns: string[] = ['firstName', 'clientCode', 'contacts'];  // Main client columns
+  contactColumns: string[] = ['name', 'surname', 'email'];  // Nested contact columns
 
   constructor(private clientService : ClientServiceService) { }
 
