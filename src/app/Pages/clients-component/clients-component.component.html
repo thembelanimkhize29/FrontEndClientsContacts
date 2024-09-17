@@ -16,24 +16,21 @@
     <p>No client(s) found.</p>
   </ng-template> -->
 
-  <section class="clients-list">
+  <!-- <section class="clients-list">
     <h2>Clients </h2>
   
     <table mat-table [dataSource]="clients" class="mat-elevation-z8" multiTemplateDataRows>
   
-      <!-- Client Name Column -->
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef> Client Name </th>
         <td mat-cell *matCellDef="let client"> {{ client.firstName }} </td>
       </ng-container>
   
-      <!-- Client Code Column -->
       <ng-container matColumnDef="clientCode">
         <th mat-header-cell *matHeaderCellDef> Client Code </th>
         <td mat-cell *matCellDef="let client"> {{ client.clientCode }} </td>
       </ng-container>
   
-      <!-- Contacts Column (Display nested contacts) -->
       <ng-container matColumnDef="contacts">
         <th mat-header-cell *matHeaderCellDef> Contacts </th>
         <td mat-cell *matCellDef="let client">
@@ -59,9 +56,40 @@
         </td>
       </ng-container>
   
-      <!-- Header and Row Declarations -->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </section>
+   -->
+
+   <div *ngIf="clients.length > 0; else noClients">
+    <table mat-table class="mat-elevation-z8">
+      <!-- Client Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Name </th>
+        <td mat-cell *matCellDef="let client" style="text-align: left;"> {{ client.firstName }} </td>
+      </ng-container>
+  
+      <!-- Client Code Column -->
+      <ng-container matColumnDef="clientCode">
+        <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Client Code </th>
+        <td mat-cell *matCellDef="let client" style="text-align: left;"> {{ client.clientCode }} </td>
+      </ng-container>
+  
+      <!-- Number of Linked Contacts Column -->
+      <ng-container matColumnDef="linkedContacts">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> No. of Linked Contacts </th>
+        <td mat-cell *matCellDef="let client" style="text-align: center;"> {{ client.linkedContacts }} </td>
+      </ng-container>
+  
+      <!-- Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="['name', 'clientCode', 'linkedContacts']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['name', 'clientCode', 'linkedContacts'];"></tr>
+    </table>
+  </div>
+  
+  <!-- No Clients Fallback -->
+  <ng-template #noClients>
+    <p>No client(s) found.</p>
+  </ng-template>
   

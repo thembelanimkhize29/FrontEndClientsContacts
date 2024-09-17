@@ -5,11 +5,12 @@ import { Client } from '../../Interfaces/client';
 import { HttpClient } from '@angular/common/http';
 import { ClientServiceService } from '../../Services/client-service.service';
 import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-clients-component',
   standalone: true,
-  imports: [RouterLink,MatTableModule,ClientCreateComponentComponent],
+  imports: [RouterLink,CommonModule,MatTableModule,ClientCreateComponentComponent],
   templateUrl: './clients-component.component.html',
   styleUrl: './clients-component.component.css'
 })
@@ -25,10 +26,16 @@ export class ClientsComponentComponent {
    }
  
    getAllClients(){
-     this.clientService.getAllClientsOrderedByName().subscribe((res)=>{
-       console.log(res);
-       this.clients=res;
-     })
+    //  this.clientService.getAllClientsOrderedByName().subscribe((res)=>{
+    //    console.log(res);
+    //    this.clients=res;
+    //  })
+    this.clientService.getAllClientsOrderedByName().subscribe((res) => {
+      this.clients = res.map(client => ({
+        ...client,
+        linkedContacts: client.contacts.length // Calculate the number of linked contacts
+      }));
+    });
    }
 
 }
