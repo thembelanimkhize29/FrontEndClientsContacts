@@ -1,4 +1,39 @@
-<p>contacts-component works!</p>
-<section class="content">
-    <router-outlet></router-outlet>
-  </section>
+<div *ngIf="contacts.length > 0; else noContacts">
+  <table mat-table [dataSource]="contacts" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let contact"> {{ contact.name }} {{ contact.surname }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let contact"> {{ contact.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="linkedClients">
+      <th mat-header-cell *matHeaderCellDef> No. of Linked Clients </th>
+      <td mat-cell *matCellDef="let contact"> {{ contact.linkedClients }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'email', 'linkedClients']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'email', 'linkedClients'];"></tr>
+  </table>
+
+  <div *ngFor="let contact of contacts">
+    <h3>Clients for {{ contact.name }} {{ contact.surname }}</h3>
+    <ul *ngIf="contact.clients && contact.clients.length > 0">
+      <li *ngFor="let client of contact.clients">
+        {{ client.firstName }} 
+        <!-- ({{ client.clientCode }}) -->
+      </li>
+    </ul>
+    <p *ngIf="!contact.clients || contact.clients.length === 0">No clients linked.</p>
+  </div>
+</div>
+
+<ng-template #noContacts>
+  <p>No contacts found.</p>
+</ng-template>
+
+<pre>{{ contacts | json }}</pre>

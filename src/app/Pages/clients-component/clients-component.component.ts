@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClientServiceService } from '../../Services/client-service.service';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { MockClientService } from '../../Services/mock-client.service';
 
 @Component({
   selector: 'app-clients-component',
@@ -16,26 +17,31 @@ import { CommonModule } from '@angular/common';
 })
 export class ClientsComponentComponent {
   clients : Client[]=[];
-  displayedColumns: string[] = ['firstName', 'clientCode', 'contacts'];  // Main client columns
-  contactColumns: string[] = ['name', 'surname', 'email'];  // Nested contact columns
 
-  constructor(private clientService : ClientServiceService) { }
+  constructor(private clientService : ClientServiceService,private clientsService: MockClientService) { }
 
   ngOnInit(){
     this.getAllClients();
    }
  
    getAllClients(){
-    //  this.clientService.getAllClientsOrderedByName().subscribe((res)=>{
-    //    console.log(res);
-    //    this.clients=res;
-    //  })
     this.clientService.getAllClientsOrderedByName().subscribe((res) => {
+      //    this.clients=res;
       this.clients = res.map(client => ({
         ...client,
-        linkedContacts: client.contacts.length // Calculate the number of linked contacts
+        linkedContacts: client.contacts.length
       }));
     });
    }
+
+   getAllClientsMock() {
+    this.clientsService.getAllClientsOrderedByName().subscribe((res) => {
+      console.log(res);
+      this.clients = res.map(client => ({
+        ...client,
+        linkedContacts: client.contacts.length
+      }));
+    });
+  }
 
 }
